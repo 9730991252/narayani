@@ -76,7 +76,6 @@ def check_customer_mobile(request):
         pid = request.GET['pid']
         qty = request.GET['qty']
         ng=0
-        c=''
         check=Customer.objects.filter(mobile=mo).count()
         if check == 1:
             request.session['customer_mobile'] = mo

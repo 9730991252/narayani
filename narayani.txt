@@ -8,6 +8,14 @@ virtualenv venv
 source venv/bin/activate
 
 
+****************migrations******
+python3 manage.py makemigrations
+
+*********** migrate ********
+
+python3 manage.py migrate
+
+
 
 ***** install django ******
 

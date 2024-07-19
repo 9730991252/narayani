@@ -120,13 +120,14 @@ def view_pending_order(request,order_filter):
         owner_mobile = request.session['owner_mobile']
         context={}
         o = Order_detail.objects.filter(order_filter=order_filter)
-        c = Order_detail.objects.filter(order_filter=order_filter).first()
-        c = Customer.objects.get(id=c.customer_id)
+        ord = Order_detail.objects.filter(order_filter=order_filter).first()
+        c = Customer.objects.get(id=ord.customer_id)
         total_amount = Order_detail.objects.filter(order_filter=order_filter,stock_status=1).aggregate(Sum ('total_price'))
         total_amount = total_amount['total_price__sum']
         context={
             'o':o,
             'c':c,
+            'ord':ord,
             'total_amount':total_amount,
         }
         return render(request, 'order/view_pending_order.html',context)
