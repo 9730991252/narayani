@@ -1,3 +1,7 @@
+git pull
+sudo systemctl daemon-reload
+sudo systemctl restart narayaniorder.com.gunicorn
+exit
 ********** Create Virtual env *****
 
 virtualenv venv
