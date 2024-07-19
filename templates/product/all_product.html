@@ -1,0 +1,46 @@
+{% extends 'home/base.html' %}
+{% block content %}
+{% include 'include/owner_menu.html' %}
+
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+    .dic_felx{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .product_box{
+        background-color: rgb(255, 210, 152);
+        border: 1px solid rgb(255, 177, 74);
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: center;
+        strong{
+            font-size: 18px;
+        }
+    }
+</style>
+
+
+<div class="container">
+    {% for p in p %}
+        <div class="product_box">
+            <div><strong>{{ p.product_name|upper }}</strong></div>
+            <div  class="dic_felx">
+                <div><b>Rs.</b>{{ p.price }}</div>
+                <div><form class="" method="POST">{% csrf_token %}{% if p.status == 1 %}<button class="btn btn-success" type="submit" name="Active">Active<input type="hidden" name="id" value="{{p.id}}"></button>{% else %}<button class="btn btn-danger" type="submit" name="Deactive">Deactive<input type="hidden" name="id" value="{{p.id}}"></button>{% endif %}</form></div>
+                <div><a href="/product/edit_product/{{p.id}}" class="btn btn-primary">Edit</a></div>
+            </div>
+            <div><a href="/product/select_category/{{p.id}}" class="btn btn-primary">Select Category</a></div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock content %}

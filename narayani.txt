@@ -1,0 +1,159 @@
+********** Create Virtual env *****
+
+virtualenv venv
+
+
+********** Activate Virtual env ****
+
+source venv/bin/activate
+
+
+
+***** install django ******
+
+pip install django
+
+pip install pillow
+pip install django-ckeditor
+
+
+******** Install Gunicorn ******
+ 
+pip install gunicorn
+
+*********** Deactivate Virtualenv *****
+
+deactivate
+
+
+************ Create System Socket File for Gunicorn *******
+
+Example:- sudo nano /etc/systemd/system/crenta.in.gunicorn.socket
+
+cd  /etc/systemd/system/
+
+sudo nano narayaniorder.com.gunicorn.socket
+
+
+
+[Unit]
+Description=narayaniorder.com.gunicorn socket
+
+[Socket]
+ListenStream=/run/narayaniorder.com.gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+
+
+************** Create System Service File for Gunicorn ******
+Syntax:- sudo nano /etc/systemd/system/your_domain.gunicorn.service
+Example:- sudo nano /etc/systemd/system/narayaniorder.com.gunicorn.service
+
+cd  /etc/systemd/system/
+
+sudo nano narayaniorder.com.gunicorn.service
+
+
+[Unit]
+Description=narayaniorder.com.gunicorn daemon
+Requires=narayaniorder.com.gunicorn.socket
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/root/narayani
+ExecStart=/root/narayani/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind unix:/run/narayaniorder.com.gunicorn.sock \
+          narayani.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+----------------------------------------------------------------
+sudo systemctl start narayaniorder.com.gunicorn.socket
+
+sudo systemctl start narayaniorder.com.gunicorn.service
+
+-----------------------------------------------------------------
+
+sudo systemctl enable narayaniorder.com.gunicorn.socket
+
+sudo systemctl enable narayaniorder.com.gunicorn.service
+
+-----------------------------------------------------------------------
+
+sudo systemctl status narayaniorder.com.gunicorn.socket
+
+sudo systemctl status narayaniorder.com.gunicorn.service
+
+-------------------------------------------
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart narayaniorder.com.gunicorn
+
+--------------------------------
+
+
+
+****************** Create Virtual Host File ******
+Syntax:- sudo nano /etc/nginx/sites-available/your_domain
+Example:- sudo nano /etc/nginx/sites-available/crenta.in
+
+
+cd /etc/nginx/sites-available
+
+sudo nano narayaniorder.com
+
+
+
+server{
+    listen 80;
+    listen [::]:80;
+
+    server_name narayaniorder.com www.narayaniorder.com;
+    client_max_body_size 500M;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_pass http://unix:/run/narayaniorder.com.gunicorn.sock;
+    }
+
+    
+}
+
+-----------------------------------------------------
+
+
+########## Enable Virtual Host or Create Symbolic Link of Virtual Host File ########
+
+sudo ln -s /etc/nginx/sites-available/narayaniorder.com /etc/nginx/sites-enabled/narayaniorder.com
+
+
+%%%%%%%%%%%%%%%%%%%%% Check Configuration is Correct or Not %%%%%
+
+sudo nginx -t
+
+%%%%%%%%%%%% Restart Nginx %%%%%%%%%
+
+sudo service nginx restart
+-------------------------------------
+
+********** restart ******
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart narayaniorder.com.gunicorn
+
+--------------------------------------- ssl ------------------
+
+sudo certbot --nginx -d narayaniorder.com -d www.narayaniorder.com

@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+{% block content %}
+{% include 'include/owner_menu.html' %}
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+    .dis_flex{
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+</style>
+
+
+<div class="text-center">
+    <h5>{{p.product_name}}</h5>
+    <div class="dis_flex">
+        <div><b>Rs. {{p.price}}</b></div>
+    </div>
+    <h5>Select Category</h5>
+    <div class="dis_flex">
+        {% for c in c %}
+                <div><input type="checkbox" value="{{c.id}}" onclick="save_category('{{c.id}}','{{p.id}}')"{% for sc in sc %}{% if c.id == sc.category_id and p.id == sc.product_id %} checked {% endif %}{% endfor %} > <label>{{c.category_name}}</label></div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+
+    function save_category(cid,pid){
+        $.ajax({
+            url: "{% url 'save_category' %}",
+            method: "GET",
+            data:{
+                cid:cid,
+                pid:pid
+                },
+                success: function(res){
+                //$("#").html(res);
+                location.reload();
+                }
+
+        })
+    }
+
+</script>
+
+{% endblock content %}

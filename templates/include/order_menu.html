@@ -1,0 +1,18 @@
+<style>
+    .btn{
+        margin-bottom: 10px;
+    }
+    .order_menu_box{
+        display: flex;
+        gap: 10px;
+        overflow: scroll;
+        margin-top: -10px;
+    }
+    </style>
+    
+    <div class="btn order_menu_box">
+        <a  href="/order/pending_order/" class=" {% if request.path == '/order/pending_order/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Pending</a>
+        <a  href="/order/accepted/" class=" {% if request.path == '/order/accepted/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Accepted</a>
+        <a  href="/order/delivered/" class=" {% if request.path == '/order/delivered/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Delivered</a>
+        <a  href="/order/cancel/" class=" {% if request.path == '/order/cancel/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Cancel</a>
+    </div>

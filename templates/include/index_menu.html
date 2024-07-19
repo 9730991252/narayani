@@ -1,0 +1,16 @@
+<style>
+    .btn{
+        margin-bottom: 10px;
+    }
+    .menu_box{
+        display: flex;
+        gap: 10px;
+        overflow: scroll;
+
+    }
+    </style>
+    
+    <div class="btn menu_box">
+        <a  href="" class=" {% if request.path == '/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Home</a>
+        <a  href="/login/" class=" {% if request.path == '/login/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">login</a>
+    </div>

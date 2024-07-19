@@ -1,0 +1,46 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+{% include 'include/owner_menu.html' %}
+{% include 'include/order_menu.html' %}
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .om_box{
+        border: 1px solid rgba(100, 100, 111, 0.2);
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        text-align: center;
+        font-weight: 600;
+        padding: 10px;
+    }
+    .grid{
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+    }
+</style>
+
+<div class="cotainer">
+    {% for o in om %}
+        <div class="om_box">
+            <div>Invoice Number {{o.order_filter}}</div>
+            <div class="grid">
+                <div>{{o.customer.name}}</div>
+                <div>Total Amount Rs. {{o.total_amount}}</div>
+                <div>{{o.date}}</div>
+                <div> Status {{o.status}}</div>
+            </div>
+            <a href="/order/view_pending_order/{{o.order_filter}}" class="btn btn-success">view</a>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+{% endblock content %}

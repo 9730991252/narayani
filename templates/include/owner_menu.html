@@ -1,0 +1,17 @@
+<style>
+    .btn{
+        margin-bottom: 10px;
+    }
+    .menu_box{
+        display: flex;
+        gap: 10px;
+        overflow: scroll;
+    }
+    </style>
+    <div class="btn menu_box">
+        <a  href="/" class=" {% if request.path == '/owner/owner_dashboard/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Home</a>
+        <a  href="/product/add_product/" class=" {% if request.path == '/product/add_product/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Add Product</a>
+        <a  href="/product/all_product/" class=" {% if request.path == '/product/all_product/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">All Product</a>
+        <a  href="/product/add_category/" class=" {% if request.path == '/product/add_category/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Add Category</a>
+        <a  href="/order/order/" class=" {% if request.path == '/order/order/' %}btn btn-warning{% else %}btn btn-primary{% endif %}">Order</a>
+    </div>

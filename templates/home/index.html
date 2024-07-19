@@ -1,0 +1,45 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+        
+{% include 'include/nav_bar.html' %}
+
+  
+
+
+
+<div class="container">
+    {% for c in c %}
+    <a class="btn btn-primary" onclick="search_product('{{c.id}}')">{{c.category_name}}</a>
+    {% endfor %}
+</div>
+
+<div id="result"></div> 
+
+{% include 'include/footer.html' %}
+<script>
+    function search_product(cid){
+        $.ajax({
+            url: "{% url 'search_product' %}",
+            method: "GET",
+            data:{
+                cid:cid,
+            },
+            success: function(res){
+                
+                $("#result").html(res.t);
+            }
+            
+        })
+    }
+    cart_btn()
+    function cart_btn(){
+        ng=document.getElementById('all_qty').innerHTML
+        if(ng != 0){
+        document.getElementById('cart_btn').style.display='';
+        }
+
+    }
+</script>
+{% endblock content %}
