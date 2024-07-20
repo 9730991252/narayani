@@ -22,6 +22,10 @@ def save_category(request):
     return JsonResponse({'status': 'status'}) 
 
 def search_product(request):
+    cm = ''
+    if request.session.has_key('customer_mobile'):
+        customer_mobile = request.session['customer_mobile']
+        cm=Customer.objects.filter(mobile=customer_mobile).first()
     if request.method == 'GET':
         cid = request.GET['cid']
         p=[]
@@ -33,7 +37,8 @@ def search_product(request):
                     pr = Product.objects.filter(id=pid)
                     p.extend(pr)
     context={
-        'p':p
+        'p':p,
+        'cm':cm
     }
     t = render_to_string('ajax/search_product.html', context)
     return JsonResponse({'t': t}) 
@@ -69,13 +74,14 @@ def add_to_cart(request):
             status=0
     return JsonResponse({'status': status,'ng':ng}) 
 
-
+ 
 def check_customer_mobile(request):
     if request.method == 'GET':
+        state = request.GET['state']
         mo = request.GET['mo']
         pid = request.GET['pid']
         qty = request.GET['qty']
-        ng=0
+        ng=[]
         check=Customer.objects.filter(mobile=mo).count()
         if check == 1:
             request.session['customer_mobile'] = mo
@@ -86,15 +92,19 @@ def check_customer_mobile(request):
                 cart = Cart.objects.get(customer_id=c.id,product_id=pid)
                 cart.qty = qty
                 cart.save()
+                nk=len(Cart.objects.filter(customer_id=c.id))
+                ng.append(nk)
             elif cart_check == 0:
                 Cart(
                     customer_id = c.id,
                     product_id = request.GET['pid'],
                     qty = request.GET['qty'],
                     ).save()
-                ng=len(Cart.objects.filter(customer_id=c.id))
+                nk=len(Cart.objects.filter(customer_id=c.id))
+                ng.append(nk)
         elif check == 0:
             Customer(
+                state = state,
                 mobile = mo
                 ).save()
             cu = Customer.objects.get(mobile=mo)
@@ -103,7 +113,8 @@ def check_customer_mobile(request):
                 product_id = request.GET['pid'],
                 qty = request.GET['qty'],
                 ).save()
-            ng=len(Cart.objects.filter(customer_id=c.id))
+            ng=len(Cart.objects.filter(customer_id=cu.id))
+
             request.session['customer_mobile'] = mo
     return JsonResponse({'ng': ng}) 
 

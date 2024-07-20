@@ -12,14 +12,14 @@
   .list_head{
     margin-top: 10px;
     display: grid;
-    grid-template-columns: 2fr 1fr 0.50fr 1fr 0.50fr;
+    grid-template-columns: 2fr 1fr 0.50fr 1fr 1fr 0.50fr;
     border-bottom: 1px solid rgb(155, 150, 150);
     padding: 20px;
   }  
 
   .list_iteam{
     display: grid;
-    grid-template-columns: 2fr 1fr 0.50fr 1fr 0.50fr;
+    grid-template-columns: 2fr 1fr 0.50fr 1fr 1fr 0.50fr;
     border-bottom: 1px solid rgb(155, 150, 150); 
     column-gap: 20px;
     padding: 20px;
@@ -36,15 +36,17 @@
 <strong>Iteam Name</strong>
 <strong>Price</strong>
 <strong>Qty</strong>
+<strong>Courier Charges</strong>
 <strong>Total</strong>
 <strong>Action</strong>
 </div>
 {% for p in cp %}
 <div class="list_iteam">
-<div><strong>{{p.product.product_name}}</strong><strong class="text-success">&nbsp;{{p.product.discount}}%  Off </strong></div>
-<div>Rs. {% call_sellprice p.product.price p.product.discount as sell_sp %}{{sell_sp}}<del>{{p.product.price}}</del></div>
+<div><strong>{{p.product.product_name}}</strong></div>
+<div>Rs. {{p.product.price}}</div>
 <div>{{p.qty}}</div>
-<div>Rs. {% multiply sell_sp p.qty %}</div>
+<div>Rs. {% cart_courier_charges p.product_id cm.id p.qty as cart_courier_charges %}{{cart_courier_charges}}</div>
+<div>Rs. {% multiply p.product.price p.qty cart_courier_charges as total %}{{total}}</div>
 <div><form><input type="hidden" name="cart_id" value="{{p.id}}"><button type="submit" class="btn btn-danger" name="Remove">X</button></form></div>
 </div>
 {% endfor %}
@@ -89,6 +91,17 @@
     <label for="name" class="form-label">District </label>
     <input type="text" class="form-control" id="name" name="district" {% if cm.district == None %}{% else %} value="{{cm.district}}"{% endif %} required>
   </div>
+  {% if cm.state == '1' %}
+  <div class="mb-3">
+      <label for="name" class="form-label">State Name</label>
+      <input type="text" class="form-control" id="name" name="state" value="Maharashtra" required>
+  </div>
+  {% else %}
+  <div class="mb-3">
+    <label for="name" class="form-label">State Name</label>
+    <input type="text" class="form-control" id="name" name="state" {% if cm.state == None %}{% else %} value="{{cm.state}}"{% endif %} required>
+  </div>
+  {% endif %}
   <button type="submit" name="Add_address" class="btn btn-warning">Place Order</button>
 </form>
 </div>

@@ -39,6 +39,7 @@
         margin-top: 10px;
     }
 </style>
+
 {% for p in p %}
     <div class="card_box text-center">
         <div class="image">
@@ -49,23 +50,34 @@
             
         </div>
         <div class="title"><strong>{{p.product_name}}</strong></div>
-        <div class="price" style="display: flex;justify-content: space-evenly;">
-            <div>Rs. {% call_sellprice p.price p.discount %} <del>{{p.price}}</del></div>
-            <div><strong>{{p.discount}}% of</strong></div>
+        <div class="price" style="display: flex;justify-content: center;">
+            <div>Rs. {{p.price}}</div>
+        </div>
+        <div style="background-color: rgb(240, 255, 255);">
+            <h6>Courier Charges</h6>
+            <div style="display: flex;justify-content: space-evenly;">
+                <div>MH Rs.{{p.courier_charges_maharashtra}}</div>
+                <div>Other State Rs.{{p.courier_charges_other_states}}</div>
+            </div>
         </div>
         <div class="iteam_footer">
             <div ><button onclick="minus('{{p.id}}')" type="button" class="btn btn-success px-3">-</button></div>
             <div ><strong  id="qty{{p.id}}"  >1</strong></div>
             <div class="plus"><button type="button" onclick="plus('{{p.id}}')"  class="btn btn-success px-3" >+</button></div>
             <div><button type="button" class="btn btn-danger mx-auto" onclick="add_to_cart('{{p.id}}')"  >Add To Cart </button></div>
-          </div>
+        </div>
         <div style="display: none;" id="mob{{p.id}}">
           <h6>Enter Delivery Information </h6>
+          <div style="display: flex; justify-content: space-evenly;">
+            <div><input type="radio" name="state" id="in_state{{p.id}}" value="1" > Maharashtra</div>
+            <div><input type="radio" name="state" id="other_state{{p.id}}" value="0" > Other State</div>
+          </div>
           <input type="number" oninput="check_number('{{p.id}}')" id="mo{{p.id}}" class="form-control" placeholder="Enter Mobile Number " >
           <a  class="btn btn-warning mt-2" onclick="check_customer_mobile('{{p.id}}')">Place Order </a>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
+    <br><br><br><br><br><br><br><br><br>
  
 <script>
     function plus(id){
@@ -108,6 +120,18 @@
     
     
     function check_customer_mobile(id){
+        var in_state = document.getElementById('in_state'+id);
+        var other_state = document.getElementById('other_state'+id);
+        state=3
+        if(in_state.checked==true){
+            state = in_state.value;
+        }
+        if(other_state.checked==true){
+            state = other_state.value;
+        }
+        if(state == 3){
+            alert('Please Select Your State')
+        }
         var mo = document.getElementById('mo'+id).value;
         var qty = document.getElementById('qty'+id).innerHTML;
         if (mo.length <= 9 ){
@@ -118,11 +142,13 @@
             url: "{% url 'check_customer_mobile' %}",
             method: "GET",
             data:{
+                state:state,
                 mo:mo,
                 pid:id,
                 qty:qty
                 },
                 success: function(res){
+                    console.log(res.ng)
                     document.getElementById('all_qty').innerHTML=res.ng;
                     cart_btn()
                     //if (res.status == 0){
@@ -137,7 +163,6 @@
 
     function check_number(id){
             mobile=document.getElementById('mo'+id).value;
-            console.log(mobile)
             if (mobile.length <= 9 ){
             document.getElementById('mo'+id).style.borderColor ='green';return false;
         }

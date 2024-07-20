@@ -7,7 +7,8 @@ from ckeditor.fields import RichTextField
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
     price=models.FloatField(default=0)
-    discount = models.IntegerField(null=True,blank=True)
+    courier_charges_maharashtra=models.FloatField(default=0)
+    courier_charges_other_states=models.FloatField(default=0)
     discription=RichTextField(null=True,blank=True)
     added_date = models.DateTimeField(auto_now_add=True, null=True)
     status = models.IntegerField(default=1)

@@ -163,7 +163,6 @@ sudo service nginx restart
 ********** restart ******
 
 sudo systemctl daemon-reload
-
 sudo systemctl restart narayaniorder.com.gunicorn
 
 --------------------------------------- ssl ------------------

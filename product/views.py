@@ -8,9 +8,8 @@ def add_product(request):
         if request.method == "POST":
             product_name=request.POST.get('product_name')
             price=request.POST.get('price')
-            discount=request.POST.get('discount')
-            if discount == "":
-                discount = None
+            courier_charges_maharashtra=request.POST.get('courier_charges_maharashtra')
+            courier_charges_other_states=request.POST.get('courier_charges_other_states')
             image_1 = request.FILES.get("image_1")
             image_2 = request.FILES.get("image_2")
             image_3 = request.FILES.get("image_3")
@@ -19,7 +18,8 @@ def add_product(request):
             Product(
                 product_name=product_name,
                 price=price,
-                discount=discount,
+                courier_charges_maharashtra=courier_charges_maharashtra,
+                courier_charges_other_states=courier_charges_other_states,
                 image_1=image_1,
                 image_2=image_2,
                 image_3=image_3,
@@ -63,9 +63,8 @@ def edit_product(request, id):
         if request.method == "POST":
             product_name=request.POST.get('product_name')
             price=request.POST.get('price')
-            discount=request.POST.get('discount')
-            if discount == "":
-                discount = None
+            courier_charges_maharashtra=request.POST.get('courier_charges_maharashtra')
+            courier_charges_other_states=request.POST.get('courier_charges_other_states')
             discription=request.POST.get('editordata')
             image_1 = request.FILES.get("image_1")
             if image_1 == None:
@@ -90,7 +89,8 @@ def edit_product(request, id):
             Product(
                 product_name=product_name,
                 price=price,
-                discount=discount,
+                courier_charges_maharashtra=courier_charges_maharashtra,
+                courier_charges_other_states=courier_charges_other_states,
                 id=id,
                 image_1=image_1,
                 image_2=image_2,
