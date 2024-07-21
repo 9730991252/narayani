@@ -119,6 +119,8 @@ def view_pending_order(request,order_filter):
         c = Customer.objects.get(id=ord.customer_id)
         total_amount = Order_detail.objects.filter(order_filter=order_filter,stock_status=1).aggregate(Sum ('total_price'))
         total_amount = total_amount['total_price__sum']
+        if total_amount is None:
+            total_amount = 0.0
         context={
             'o':o,
             'c':c,

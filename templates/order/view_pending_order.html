@@ -8,25 +8,29 @@
     body{
       height: 100vh;
       width: 100vw;
+      
     }
     .list_head{
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid rgb(155, 150, 150);
     padding: 20px;
+    .qty{
+      margin-left: -10px;
+    }
   }  
 
 
   .list_iteam{
+
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid rgb(212, 212, 212); 
     column-gap: 20px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
-
   }
   .invice_box{
     width: 4in;
@@ -42,6 +46,15 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     margin-bottom: -18px;
     margin-top: -7px;
+  }
+</style>
+<style media="print">
+  .hi{
+    display: none;
+  }
+  .list_iteam,.list_head{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
   }
 </style>
 <div class="container my-3">
@@ -63,18 +76,20 @@
     </div>
   <div class="list_head">
     <strong>Iteam Name</strong>
-    <strong>Qty</strong>
-    <strong>Price</strong>
+    <strong class="qty">Qty</strong>
+    <strong style="margin-right: 5px;">Price</strong>
     <strong>courier</strong>
-    <strong>Total</strong>
+    <strong class="ms-2">Total</strong>
+    <strong class="hi ms-2 text-center">i</strong>
   </div>
     {% for p in o %}
     <div class="list_iteam">
-    <div><strong>{{p.product.product_name}}</strong><strong class="text-success"></strong></div>
-    <div class="text-center">{{p.qty}}</div>
-    <div>{{p.price}}</div>
-    <div>{{p.courier_charges}}</div>
-    <div>{{p.total_price}}</div>
+      <div><strong>{{p.product.product_name}}</strong></div>
+      <div class="text-end">{{p.qty}}</div>
+      <div>{{p.price}}</div>
+      <div>{{p.courier_charges}}</div>
+      <div>{{p.total_price}}</div>
+      <div><input  onclick="in_stock('{{p.id}}')" type="checkbox" {% if p.stock_status == 1 %}checked{% endif %}></div>
     </div>
     {% endfor %}
 
@@ -89,4 +104,23 @@
       <p style="margin-top: -15px;">FSSI No. 21524088001507</p>
   </div>
 </div>
+
+<script>
+  function in_stock(id){
+    $.ajax({
+            url: "{% url 'in_stock' %}",
+            method: "GET",
+            data:{
+                id:id,
+                },
+                success: function(res){
+                //$("#").html(res);
+                location.reload();
+                }
+
+        })
+  }
+
+</script>
+
 {% endblock content %} 

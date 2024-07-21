@@ -124,13 +124,21 @@ def state(request):
         c = Customer.objects.get(id=cid)
         c.state = s
         c.save()
-
     return JsonResponse({'status':1}) 
 
 
-
-
-
+def in_stock(request): 
+    if request.method == 'GET':
+        id = request.GET['id']
+        if id:
+            od = Order_detail.objects.get(id=id)
+            if od.stock_status == 1:
+                od.stock_status = 0
+                od.save()
+            else:
+                od.stock_status = 1
+                od.save()
+    return JsonResponse({'status':1}) 
 
 
 
