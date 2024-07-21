@@ -66,15 +66,15 @@ def cart(request):
                         for curent_p_d in curent_p_d:
                             price_d=curent_p_d.price
                             total_d=price_d*qty_d
-                            courier_charges = qty_d * (curent_p.courier_charges_maharashtra if cm.state == '1' else curent_p.courier_charges_other_states)
-                            total_amount_d+= total_d + courier_charges
+                            courire_total = qty_d * (curent_p_d.courier_charges_maharashtra if cm.state == '1' else curent_p_d.courier_charges_other_states)
+                            total_amount_d = total_d + courire_total
                             Order_detail(
                                 customer_id=cm.id,
                                 product_id=pid_d,
                                 product_name=curent_p_d.product_name,
                                 price=curent_p_d.price,
                                 qty=qty_d,
-                                courier_charges=courier_charges,
+                                courier_charges=(curent_p_d.courier_charges_maharashtra if cm.state == '1' else curent_p_d.courier_charges_other_states) ,
                                 total_price=total_amount_d,
                                 order_filter=f,
                             ).save() 
