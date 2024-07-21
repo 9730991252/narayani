@@ -68,10 +68,6 @@
         </div>
         <div style="display: none;" id="mob{{p.id}}">
           <h6>Enter Delivery Information </h6>
-          <div style="display: flex; justify-content: space-evenly;">
-            <div><input type="radio" name="state" id="in_state{{p.id}}" value="1" > Maharashtra</div>
-            <div><input type="radio" name="state" id="other_state{{p.id}}" value="0" > Other State</div>
-          </div>
           <input type="number" oninput="check_number('{{p.id}}')" id="mo{{p.id}}" class="form-control" placeholder="Enter Mobile Number " >
           <a  class="btn btn-warning mt-2" onclick="check_customer_mobile('{{p.id}}')">Place Order </a>
         </div>
@@ -120,18 +116,6 @@
     
     
     function check_customer_mobile(id){
-        var in_state = document.getElementById('in_state'+id);
-        var other_state = document.getElementById('other_state'+id);
-        state=3
-        if(in_state.checked==true){
-            state = in_state.value;
-        }
-        if(other_state.checked==true){
-            state = other_state.value;
-        }
-        if(state == 3){
-            alert('Please Select Your State')
-        }
         var mo = document.getElementById('mo'+id).value;
         var qty = document.getElementById('qty'+id).innerHTML;
         if (mo.length <= 9 ){
@@ -142,7 +126,6 @@
             url: "{% url 'check_customer_mobile' %}",
             method: "GET",
             data:{
-                state:state,
                 mo:mo,
                 pid:id,
                 qty:qty

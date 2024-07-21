@@ -8,11 +8,12 @@ def index(request):
     #Product.objects.all().delete()
     #Cart.objects.all().delete()
     #Customer.objects.all().delete()
+    #Order_detail.objects.all().delete()
+    #OrderMaster.objects.all().delete()
     #del request.session['customer_mobile']
     ng=0
     if request.session.has_key('customer_mobile'):
         customer_mobile = request.session['customer_mobile']
-        print(customer_mobile)
         cm=Customer.objects.filter(mobile=customer_mobile).first()
         if cm:
             cm=Customer.objects.get(mobile=customer_mobile)

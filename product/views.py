@@ -70,22 +70,18 @@ def edit_product(request, id):
             if image_1 == None:
                 i=Product.objects.get(id=id)
                 image_1=i.image_1
-                #print(image_1)
             image_2 = request.FILES.get("image_2")
             if image_2 == None:
                 i=Product.objects.get(id=id)
                 image_2=i.image_2
-                #print(image)
             image_3 = request.FILES.get("image_3")
             if image_3 == None:
                 i=Product.objects.get(id=id)
                 image_3=i.image_3
-                #print(image)
             image_4 = request.FILES.get("image_4")
             if image_4 == None:
                 i=Product.objects.get(id=id)
                 image_4=i.image_4
-                #print(image)
             Product(
                 product_name=product_name,
                 price=price,

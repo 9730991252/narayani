@@ -31,12 +31,24 @@
 
 
 </style>
+
+
+
 <h>Shopping Cart</h>
+
+<div class="container text-center">
+  <h6>Courier Charges</h6>
+  <div style="display: flex; justify-content: space-evenly;">
+    <div><input onclick="state('{{cm.id}}')" type="radio" name="state" id="in_state" value="1" {% if cm.state == '1' %} checked {% else %}{% endif %}> Maharashtra</div>
+    <div><input onclick="state('{{cm.id}}')" type="radio" name="state" id="other_state" value="0" {% if cm.state == '0' %} checked {% else %}{% endif %}> Other state </div>
+  </div>
+</div>
+
 <div class="list_head">
 <strong>Iteam Name</strong>
 <strong>Price</strong>
 <strong>Qty</strong>
-<strong>Courier Charges</strong>
+<strong>Courier</strong>
 <strong>Total</strong>
 <strong>Action</strong>
 </div>
@@ -45,7 +57,7 @@
 <div><strong>{{p.product.product_name}}</strong></div>
 <div>Rs. {{p.product.price}}</div>
 <div>{{p.qty}}</div>
-<div>Rs. {% cart_courier_charges p.product_id cm.id p.qty as cart_courier_charges %}{{cart_courier_charges}}</div>
+<div>Rs. {% cart_courier_charges p.product_id cm.id as cart_courier_charges %}{{cart_courier_charges}}</div>
 <div>Rs. {% multiply p.product.price p.qty cart_courier_charges as total %}{{total}}</div>
 <div><form><input type="hidden" name="cart_id" value="{{p.id}}"><button type="submit" class="btn btn-danger" name="Remove">X</button></form></div>
 </div>
@@ -94,15 +106,44 @@
   {% if cm.state == '1' %}
   <div class="mb-3">
       <label for="name" class="form-label">State Name</label>
-      <input type="text" class="form-control" id="name" name="state" value="Maharashtra" required>
+      <input type="text" class="form-control" id="name" name="state_name" value="Maharashtra" readonly>
   </div>
   {% else %}
   <div class="mb-3">
     <label for="name" class="form-label">State Name</label>
-    <input type="text" class="form-control" id="name" name="state" {% if cm.state == None %}{% else %} value="{{cm.state}}"{% endif %} required>
+    <input type="text" class="form-control" id="name" name="state_name" {% if cm.state == None %}{% else %} value=""{% endif %} required>
   </div>
   {% endif %}
   <button type="submit" name="Add_address" class="btn btn-warning">Place Order</button>
 </form>
 </div>
+
+
+<script>
+  function state(cid){
+    in_state = document.getElementById('in_state');
+    other_state = document.getElementById('other_state');
+    if (in_state.checked){
+      s = in_state.value;
+    }
+    if (other_state.checked){
+      s = other_state.value;
+    }
+    $.ajax({
+          url: "{% url 'state' %}",
+          method: "GET",
+          data:{
+            cid:cid,
+            s:s,
+          },
+          success: function(res){
+            location.reload()
+            }
+        })
+  }
+
+</script>
+
+
+
 {% endblock content %}

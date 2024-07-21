@@ -77,7 +77,6 @@ def add_to_cart(request):
  
 def check_customer_mobile(request):
     if request.method == 'GET':
-        state = request.GET['state']
         mo = request.GET['mo']
         pid = request.GET['pid']
         qty = request.GET['qty']
@@ -104,7 +103,6 @@ def check_customer_mobile(request):
                 ng.append(nk)
         elif check == 0:
             Customer(
-                state = state,
                 mobile = mo
                 ).save()
             cu = Customer.objects.get(mobile=mo)
@@ -119,6 +117,15 @@ def check_customer_mobile(request):
     return JsonResponse({'ng': ng}) 
 
 
+def state(request):
+    if request.method == 'GET':
+        s = request.GET['s']
+        cid = request.GET['cid']
+        c = Customer.objects.get(id=cid)
+        c.state = s
+        c.save()
+
+    return JsonResponse({'status':1}) 
 
 
 

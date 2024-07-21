@@ -11,7 +11,7 @@
     }
     .list_head{
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid rgb(155, 150, 150);
     padding: 20px;
   }  
@@ -19,7 +19,7 @@
 
   .list_iteam{
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid rgb(212, 212, 212); 
     column-gap: 20px;
     padding-left: 20px;
@@ -65,13 +65,15 @@
     <strong>Iteam Name</strong>
     <strong>Qty</strong>
     <strong>Price</strong>
+    <strong>courier</strong>
     <strong>Total</strong>
   </div>
     {% for p in o %}
     <div class="list_iteam">
     <div><strong>{{p.product.product_name}}</strong><strong class="text-success"></strong></div>
     <div class="text-center">{{p.qty}}</div>
-    <div>{{p.sell_price}}</div>
+    <div>{{p.price}}</div>
+    <div>{{p.courier_charges}}</div>
     <div>{{p.total_price}}</div>
     </div>
     {% endfor %}

@@ -40,12 +40,12 @@ class Order_detail(models.Model):
     product = models.ForeignKey(Product,on_delete=models.PROTECT,default=True)
     product_name = models.CharField(max_length=100)
     price=models.FloatField(default=0)
-    sell_price=models.FloatField(default=0)
-    discount = models.IntegerField(null=True,blank=True)
     qty = models.IntegerField(default=1) 
+    courier_charges=models.FloatField(default=0)
     total_price=models.FloatField(default=0,null=True)
     order_filter=models.IntegerField(default=True)
     stock_status = models.IntegerField(choices=INSTOCK_OUTSTOCK_CHOICE,default=1)
     date=models.DateField(auto_now_add=True,null=True)
     ordered_date = models.DateTimeField(auto_now_add=True,null=True)
 
+ 

@@ -10,6 +10,7 @@ class Customer (models.Model):
     landmark=models.CharField(max_length=100,null=True,blank=True)
     taluka=models.CharField(max_length=100,null=True,blank=True)
     district=models.CharField(max_length=100,null=True,blank=True)
-    state=models.CharField(max_length=100,null=True,blank=True)
+    state_name=models.CharField(max_length=100,null=True,blank=True)
+    state=models.CharField(max_length=100,default=1)
     date=models.DateField(auto_now_add=True,null=True)
     status = models.IntegerField(default=1)

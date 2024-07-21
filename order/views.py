@@ -23,6 +23,7 @@ def cart(request):
             taluka=request.POST.get('taluka')
             district=request.POST.get('district')
             landmark=request.POST.get('landmark')
+            state_name=request.POST.get('state_name')
             Customer(
                 id=cm.id,
                 mobile=cm.mobile,
@@ -34,6 +35,7 @@ def cart(request):
                 taluka=taluka,
                 district=district,
                 landmark=landmark,
+                state_name=state_name,
             ).save()
             total_amount=0
             f=OrderMaster.objects.all().count()
@@ -46,12 +48,9 @@ def cart(request):
                     if curent_p:
                         for curent_p in curent_p:
                             price=curent_p.price
-                            discount=curent_p.discount
-                            if discount == None:
-                                discount =0
-                            sellprice=price - (price * discount / 100)
-                            total=sellprice*qty
-                            total_amount+= total
+                            total=price*qty
+                            courier_charges = qty * (curent_p.courier_charges_maharashtra if cm.state == '1' else curent_p.courier_charges_other_states)
+                            total_amount+= total + courier_charges
             OrderMaster(
                 customer_id=cm.id,
                 total_amount=total_amount,
@@ -66,23 +65,19 @@ def cart(request):
                     if curent_p_d:
                         for curent_p_d in curent_p_d:
                             price_d=curent_p_d.price
-                            discount_d=curent_p_d.discount
-                            if discount_d == None:
-                                discount_d=0
-                            sellprice_d=price_d - (price_d * discount_d / 100)
-                            total_d=sellprice_d*qty_d
-                            total_amount_d+= total_d
+                            total_d=price_d*qty_d
+                            courier_charges = qty_d * (curent_p.courier_charges_maharashtra if cm.state == '1' else curent_p.courier_charges_other_states)
+                            total_amount_d+= total_d + courier_charges
                             Order_detail(
                                 customer_id=cm.id,
                                 product_id=pid_d,
                                 product_name=curent_p_d.product_name,
                                 price=curent_p_d.price,
-                                sell_price=sellprice_d,
-                                discount=discount_d,
                                 qty=qty_d,
-                                total_price=total_d,
+                                courier_charges=courier_charges,
+                                total_price=total_amount_d,
                                 order_filter=f,
-                            ).save()
+                            ).save() 
                 cp=Cart.objects.filter(customer_id=cm.id).delete()
                 return redirect('/')
         context={

@@ -10,7 +10,7 @@ def multiply(price,qty,n):
 
 
 @register.simple_tag
-def cart_courier_charges(pid,cid,qty,):
+def cart_courier_charges(pid,cid):
     c = Customer.objects.get(id=cid)
     if c.state == '1':
         p = Product.objects.filter(id=pid)
