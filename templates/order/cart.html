@@ -47,8 +47,8 @@
 <div class="list_head">
 <strong>Iteam Name</strong>
 <strong>Price</strong>
-<strong>Qty</strong>
-<strong>Courier</strong>
+<strong class="me-2">Qty</strong>
+<strong class="me-2">Courier</strong>
 <strong>Total</strong>
 <strong>Action</strong>
 </div>
@@ -56,7 +56,31 @@
 <div class="list_iteam">
 <div><strong>{{p.product.product_name}}</strong></div>
 <div>Rs. {{p.product.price}}</div>
-<div>{{p.qty}}</div>
+<div class="text-center" >
+  <select id="qty{{p.product_id}}" onclick="cart_qty('{{p.product_id}}','{{p.customer_id}}')">
+    <option selected>{{p.qty}}</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+    <option value="14">14</option>
+    <option value="15">15</option>
+    <option value="16">16</option>
+    <option value="17">17</option>
+    <option value="18">18</option>
+    <option value="19">19</option>
+    <option value="20">20</option>
+  </select>
+</div>
 <div>Rs. {% cart_courier_charges p.product_id cm.id as cart_courier_charges %}{{cart_courier_charges}}</div>
 <div>Rs. {% multiply p.product.price p.qty cart_courier_charges as total %}{{total}}</div>
 <div><form><input type="hidden" name="cart_id" value="{{p.id}}"><button type="submit" class="btn btn-danger" name="Remove">X</button></form></div>
@@ -141,7 +165,21 @@
             }
         })
   }
-
+  function cart_qty(pid,cid){
+    qty = document.getElementById('qty'+pid).value;
+    $.ajax({
+          url: "{% url 'cart_qty' %}",
+          method: "GET",
+          data:{
+            cid:cid,
+            pid:pid,
+            qty:qty,
+          },
+          success: function(res){
+            location.reload()
+            }
+        })
+  }
 </script>
 
 

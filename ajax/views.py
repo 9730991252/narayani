@@ -140,6 +140,16 @@ def in_stock(request):
                 od.save()
     return JsonResponse({'status':1}) 
 
+def cart_qty(request): 
+    if request.method == 'GET':
+        qty = request.GET['qty']
+        pid = request.GET['pid']
+        cid = request.GET['cid']
+        if qty:
+            c = Cart.objects.get(product_id=pid,customer_id=cid)
+            c.qty = qty
+            c.save()
+    return JsonResponse({'status':1}) 
 
 
 
