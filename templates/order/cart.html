@@ -57,7 +57,7 @@
 <div><strong>{{p.product.product_name}}</strong></div>
 <div>Rs. {{p.product.price}}</div>
 <div class="text-center" >
-  <select id="qty{{p.product_id}}" onclick="cart_qty('{{p.product_id}}','{{p.customer_id}}')">
+  <select id="qty{{p.product_id}}" oninput="cart_qty('{{p.product_id}}','{{p.customer_id}}')">
     <option selected>{{p.qty}}</option>
     <option value="1">1</option>
     <option value="2">2</option>
