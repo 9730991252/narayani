@@ -176,7 +176,9 @@
             qty:qty,
           },
           success: function(res){
-            location.reload()
+            if (res.status == 1){
+              location.reload()
+            }
             }
         })
   }

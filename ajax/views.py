@@ -142,14 +142,18 @@ def in_stock(request):
 
 def cart_qty(request): 
     if request.method == 'GET':
+        status = '0'
         qty = request.GET['qty']
         pid = request.GET['pid']
         cid = request.GET['cid']
         if qty:
             c = Cart.objects.get(product_id=pid,customer_id=cid)
-            c.qty = qty
-            c.save()
-    return JsonResponse({'status':1}) 
+            if c.qty != int(qty):
+                c.qty = qty
+                c.save()
+                status = '1'
+
+    return JsonResponse({'status':status}) 
 
 
 
