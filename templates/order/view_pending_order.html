@@ -15,6 +15,7 @@
     grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid rgb(155, 150, 150);
     padding: 20px;
+    padding-bottom: 0px;
     .qty{
       margin-left: -10px;
     }
@@ -34,7 +35,8 @@
   }
   .invice_box{
     width: 4in;
-    height: 6in;
+    height: auto ;
+    max-height: 6in;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid rgba(0, 0, 0, 0.3); 
@@ -56,9 +58,10 @@
     display: grid;
     grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
   }
+
 </style>
 <div class="container my-3">
-  <a href="/order/pending_order/" class="btn btn-danger" >Back</a>
+  <a href="/order/pending_order/" class="btn btn-danger hi" >Back</a>
 </div>
 <div class="invice_box">
     <div class="customer_box">

@@ -103,7 +103,7 @@ def pending_order(request):
         context={}
 
         context={
-            'om':OrderMaster.objects.filter(status='Pending')
+            'om':OrderMaster.objects.filter(status='Pending').order_by('-id')
         }
         return render(request, 'order/pending_order.html',context)
     else:
