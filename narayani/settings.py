@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'ajax',
     'customer',
     'order',
+    'test1'
 ]
 
 MIDDLEWARE = [
