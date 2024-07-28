@@ -18,7 +18,7 @@
       </div>
 
 
-      <audio controls>
+      <audio id="audio" controls>
         <source src="{% static 'audio/1.mp3' %}" type="audio/mp3">
       </audio>
 
@@ -27,7 +27,7 @@
 
     <script type="text/javascript">
         function onScanSuccess(qrCodeMessage) {
-          audio()
+            audio()
             document.getElementById('result').innerHTML = '<span class="result">'+qrCodeMessage+'</span>';
         }
         function onScanError(errorMessage) {
@@ -36,6 +36,8 @@
         var html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", { fps: 10, qrbox: 250,showTorchButtonIfSupported:true});
         html5QrcodeScanner.render(onScanSuccess, onScanError);
+
+
 
 
         function audio(){
