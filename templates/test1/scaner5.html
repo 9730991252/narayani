@@ -6,37 +6,28 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="you-qr-result"></div>
-    <div style="display: flex;justify-content: center;">
-        <div id="my-qr-reader" style="width: 500px;"></div>
-    </div>
+    <div class="row">
+        <div class="col">
+          <div style="width:500px;" id="reader"></div>
+        </div>
+        <div class="col" style="padding:30px;">
+          <h4>SCAN RESULT</h4>
+          <div id="result">Result Here</div>
+        </div>
+      </div>
+
     <script src="https://unpkg.com/html5-qrcode"></script>
-    <script>
-        function domReady(fn){
-            if(document.readyState === "complete" || document.readyState === "interactive"){
-                setTimeout(fn,1)
-            }else{
-                document.addEventListener("DOMContentLoaded", fn)
-            }
+    
+    <script type="text/javascript">
+        function onScanSuccess(qrCodeMessage) {
+            document.getElementById('result').innerHTML = '<span class="result">'+qrCodeMessage+'</span>';
         }
-
-        domReady(function(){
-            var myqr = document.getElementById('you-qr-result')
-            var lastResult,countResults = 0;
-            function onScanSuccess(decodeText,decodeResult){
-                if(decodeText !== lastResult){
-                    ++countResults;
-                    lastResult = decodeText;
-
-                    alert(decodeText,decodeResult)
-
-                    myqr .innerHTML = `${countResults} : ${decodeText}`
-                }
-            }
-            var htmlscanner = new Html5QrcodeScanner(
-                "my-qr-reader",{fps:10,qrbox:250,showTorchButtonIfSupported: true,zoom:true})
-                htmlscanner.render(onScanSuccess)
-        })
-    </script>
+        function onScanError(errorMessage) {
+          //handle scan error
+        }
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 10, qrbox: 250,showTorchButtonIfSupported: true });
+        html5QrcodeScanner.render(onScanSuccess, onScanError);
+        </script>
 </body>
 </html>
