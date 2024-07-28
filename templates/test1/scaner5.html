@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,18 +17,31 @@
         </div>
       </div>
 
+
+      <audio controls>
+        <source src="{% static 'audio/1.mp3' %}" type="audio/mp3">
+      </audio>
+
+
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <script type="text/javascript">
         function onScanSuccess(qrCodeMessage) {
+            
             document.getElementById('result').innerHTML = '<span class="result">'+qrCodeMessage+'</span>';
         }
         function onScanError(errorMessage) {
           //handle scan error
         }
         var html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", { fps: 10, qrbox: 250,showTorchButtonIfSupported: true });
+            "reader", { fps: 10, qrbox: 250,showTorchButtonIfSupported:true});
         html5QrcodeScanner.render(onScanSuccess, onScanError);
+
+
+        function audio(){
+          var audio = document.getElementById('audio');
+          audio.play();
+        }
         </script>
 </body>
 </html>
