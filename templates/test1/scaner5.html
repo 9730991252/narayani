@@ -8,7 +8,7 @@
 <body>
     <div class="row">
         <div class="col">
-          <div style="width:500px;" id="reader"></div>
+          <div style="width:300px;" id="reader"></div>
         </div>
         <div class="col" style="padding:30px;">
           <h4>SCAN RESULT</h4>
@@ -17,7 +17,7 @@
       </div>
 
     <script src="https://unpkg.com/html5-qrcode"></script>
-    
+
     <script type="text/javascript">
         function onScanSuccess(qrCodeMessage) {
             document.getElementById('result').innerHTML = '<span class="result">'+qrCodeMessage+'</span>';
