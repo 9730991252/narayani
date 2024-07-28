@@ -34,7 +34,7 @@
                 }
             }
             var htmlscanner = new Html5QrcodeScanner(
-                "my-qr-reader",{fps:10,qrbox:250,showTorchButtonIfSupported: true})
+                "my-qr-reader",{fps:10,qrbox:250,showTorchButtonIfSupported: true,zoom:true})
                 htmlscanner.render(onScanSuccess)
         })
     </script>
