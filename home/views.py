@@ -41,9 +41,11 @@ def login(request):
     return render(request, 'home/login.html' )
 
 def logout (request):
-    del request.session['owner_mobile']
+    if request.session.has_key('owner_mobile'):
+        del request.session['owner_mobile']
     return redirect('/')
 
 def customer_logout (request):
-    del request.session['customer_mobile']
+    if request.session.has_key('customer_mobile'):
+        del request.session['customer_mobile']
     return redirect('/')

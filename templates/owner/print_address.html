@@ -1,0 +1,79 @@
+{% extends 'home/base.html' %}
+{% block head %}
+{% endblock head %}
+{% block content %}
+<div class="hi">
+{% include 'include/owner_menu.html' %}
+</div>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .print_div{
+        padding: 5px;
+        border: 1px solid black;
+        height: 6in;
+        width: 4in;
+        margin: auto;
+        overflow:hidden;
+    }
+    .address{
+        textarea{
+            width: 100%;
+            padding: 10px;
+            border: none;
+            height: auto;
+            padding-top: 0;
+        }
+    }
+    #button{
+        display: none;
+    }
+</style>
+<style media="print">
+    .hi{
+      display: none;
+    }
+    .list_iteam,.list_head{
+      display: grid;
+      grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    }
+  </style>
+
+
+<div class="hi text-center">
+    <br>
+    <button onclick="window.print()" id="button" class="btn btn-primary">Print</button>
+</div>
+<div class="print_div">
+    <div class="address">
+        <h6><b>To</b></h6>
+        <textarea rows="8" oninput="check_address()" id="address" placeholder="Enter Address Here"></textarea>
+    </div>
+    <hr>
+    <div class="text-center m-2"><b>Thank You Visit Again</b></div>
+    <div class="owner_detail container">
+      <p style="font-weight: 600;margin-bottom: -2px;">From <br> Narayaniorder.com</p>
+      <p>Poonam Ashish Shinde <br> Veet , KARMALA, Solapur, Maharashtra-413203</p>
+      <p style="margin-top: -15px;">FSSI No. 21524088001507</p>
+    </div>
+
+    
+</div>
+
+<script>
+    function check_address(){
+        address = document.getElementById('address').value;
+        len = address.length
+        if (len > 0){
+            document.getElementById('button').style.display = 'unset'
+        }else{
+            document.getElementById('button').style.display = 'none'
+
+        }
+    }
+</script>
+
+{% endblock content %}
