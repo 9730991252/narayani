@@ -12,12 +12,17 @@
         box-sizing: border-box;
     }
     .print_div{
-        padding: 5px;
-        border: 1px solid black;
+        padding: 10px;
         height: 6in;
         width: 4in;
         margin: auto;
         overflow:hidden;
+    }
+    .print_div_in{
+        padding: 10px;
+        height: 100%;
+        width: 100%;
+        border: 1px solid black;
     }
     .address{
         textarea{
@@ -48,19 +53,21 @@
     <button onclick="window.print()" id="button" class="btn btn-primary">Print</button>
 </div>
 <div class="print_div">
-    <div class="address">
-        <h6><b>To</b></h6>
-        <textarea rows="8" oninput="check_address()" id="address" placeholder="Enter Address Here"></textarea>
+    <div style="border: 1px solid black;padding: 2px;">
+        <div class="print_div_in">
+            <div class="address">
+                <h6><b>To</b></h6>
+                <textarea rows="8" oninput="check_address()" id="address" placeholder="Enter Address Here"></textarea>
+            </div>
+            <hr>
+            <div class="text-center m-2"><b>Thank You Visit Again</b></div>
+            <div class="owner_detail container">
+              <p style="font-weight: 600;margin-bottom: -2px;">From <br> Narayaniorder.com</p>
+              <p>Poonam Ashish Shinde <br> Veet , KARMALA, Solapur, Maharashtra-413203</p>
+              <p style="margin-top: -15px;">FSSI No. 21524088001507</p>
+            </div>
+        </div>
     </div>
-    <hr>
-    <div class="text-center m-2"><b>Thank You Visit Again</b></div>
-    <div class="owner_detail container">
-      <p style="font-weight: 600;margin-bottom: -2px;">From <br> Narayaniorder.com</p>
-      <p>Poonam Ashish Shinde <br> Veet , KARMALA, Solapur, Maharashtra-413203</p>
-      <p style="margin-top: -15px;">FSSI No. 21524088001507</p>
-    </div>
-
-    
 </div>
 
 <script>
