@@ -21,10 +21,10 @@
         overflow:hidden;
     }
     .print_div_in{
-        padding: 10px;
+
         height: 100%;
         width: 100%;
-        border: 1px solid black;
+        border: 3px solid black;
     }
     .address{
         textarea{
@@ -44,8 +44,8 @@
         font-weight: 800;
     }
     img{
-        height: 50px;
-        width: 50px;
+        height: 40px;
+        width: 40px;
 
     }
 </style>
@@ -65,21 +65,24 @@
     <button onclick="window.print()" id="button" class="btn btn-primary">Print</button>
 </div>
 <div class="print_div">
-    <div style="border: 1px solid black;padding: 2px;">
+    <div style="padding: 2px;">
         <div class="print_div_in">
-            <div class="address">
+            <br>
+            <br>
+            <div class="address p-2" style="border-top: 1px solid black;">
                 <h6><b>To ,</b></h6>
                 <textarea rows="8" oninput="check_address()" id="address" placeholder="Enter Address Here"></textarea>
             </div>
-            <hr>
-            <div class="owner_detail container">
-                <p style="font-weight: 600;margin-bottom: -7px;"><h6><b>From</b>,</h6> Narayaniorder.com</p>
-                <p style="margin-top: -15px;">Poonam Ashish Shinde <br>A/p-Veet, Tal-KARMALA, Dist-Solapur, Maharashtra-413203</p>
-                <p style="margin-top: -15px;">Mo- 7499067094</p>
+            <div class="owner_detail container" style="margin-top: 10px; padding-top: 0px; border-top: 1px solid black;">
+                <div style="scale: 0.9;">
+                    <p style="font-weight: 600;margin-bottom: -7px;"><h6><b>From</b>,</h6> Narayaniorder.com</p>
+                    <p style="margin-top: -15px;">Poonam Ashish Shinde <br>A/p-Veet, Tal-KARMALA, Dist-Solapur, Maharashtra-413203</p>
+                    <p style="margin-top: -15px;">Mo- 7499067094</p>
+                </div>
             </div>
-            <div class="m-2" style="display: flex;gap: 10px;justify-content: center;align-items: center;">
+            <div class="" style="border-top: 1px solid black; display: flex;gap: 10px;justify-content: center;align-items: center;">
                 <div><b>Thank You Visit Again</b></div>
-                <div><img src="{% static 'img/qrcode.png' %}"></div>
+                <div style="padding: 5px; border-left: 1px solid black;"><img src="{% static 'img/qrcode.png' %}"></div>
             </div>
         </div>
     </div>

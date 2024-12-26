@@ -2,6 +2,10 @@ git pull
 sudo systemctl daemon-reload
 sudo systemctl restart narayaniorder.com.gunicorn
 exit
+
+git clone https://github.com/9730991252/narayani.git
+cd narayani
+
 ********** Create Virtual env *****
 
 virtualenv venv
@@ -13,6 +17,7 @@ source venv/bin/activate
 
 
 ****************migrations******
+
 python3 manage.py makemigrations
 
 *********** migrate ********
@@ -24,7 +29,6 @@ python3 manage.py migrate
 ***** install django ******
 
 pip install django
-
 pip install pillow
 pip install django-ckeditor
 
